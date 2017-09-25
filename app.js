@@ -8,6 +8,9 @@ var app = express();
 
 ///////////////////////////////////////////////////////////////////////////////
 
+// See https://developer.spotify.com/web-api/authorization-guide/#authorization-code-flow
+// for additional information about the Spotify web API that is used in this file.
+
 var client_id = '942817181f7f4d0a92bdff56b87e1b50';
 var client_secret = fs.readFileSync('SECRET_KEY', 'utf8');
 var redirect_uri = 'http://localhost:8888/oauth-callback/';
