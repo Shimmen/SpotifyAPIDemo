@@ -20,7 +20,8 @@
   "author": "Simon Moos",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.15.5"
+    "express": "^4.15.5",
+    "request": "^2.82.0"
   },
   "devDependencies": {
     "nodemon": "^1.12.1"
