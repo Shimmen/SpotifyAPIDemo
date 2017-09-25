@@ -20,6 +20,7 @@
   "author": "Simon Moos",
   "license": "MIT",
   "dependencies": {
+    "cookie-parser": "^1.4.3",
     "express": "^4.15.5",
     "request": "^2.82.0"
   },
