@@ -128,6 +128,7 @@ app.get('/oauth-callback', function(req, res) {
 		res.redirect('/');
 	}
 
+	// No error, authorization code should be available
 	var code = req.query.code || null;
 	var authOptions = {
 		url: 'https://accounts.spotify.com/api/token',
