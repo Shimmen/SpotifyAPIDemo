@@ -1,0 +1,164 @@
+/*
+ *
+ * Main stylesheet
+ *
+ */
+
+
+/*
+ * Reset
+ */
+
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*
+ * Fonts
+ */
+
+@import url('https://fonts.googleapis.com/css?family=Space+Mono:400,400i,700|Open+Sans:400,400i,700');
+
+/*
+ * Main
+ */
+
+body {
+	font-family: 'Open Sans', sans-serif;
+	background-color: #fff;
+	color: #333;
+
+	box-sizing: border-box;
+}
+
+section {
+	max-width: 768px;
+	margin: 0 auto;
+
+	line-height: 1.65em;
+}
+
+a {
+	color: #333;
+}
+
+p, pre, code {
+	font-size: 1em;
+	margin-bottom: 1.65em;
+	line-height: 1.65em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Space Mono', monospace;
+}
+
+h1 {
+	text-align: center;
+	font-size: 3.5em;
+	font-weight: 700;
+	margin: 50px 0 60px 0;
+}
+
+h1 > small {
+	display: block;
+	font-size: 0.4em;
+	font-weight: normal;
+	text-transform: none;
+	font-style: normal;
+	color: #666;
+	margin-top: 8px;
+}
+
+h2 {
+	font-size: 1.7em;
+	padding: 25px 0;
+	font-weight: 700;
+	font-style: italic;
+	text-transform: lowercase;
+}
+
+h3 {
+	font-size: 1.3em;
+	padding: 15px 0;
+	font-weight: 700;
+	font-style: italic;
+	text-transform: lowercase;
+}
+
+#login-button {
+	display: block;
+	cursor: pointer;
+
+	padding: 20px 30px;
+	text-align: center;
+	margin: 0 auto;
+
+	font-family: 'Space Mono', monospace;
+	font-size: 1.4em;
+	font-style: italic;
+	text-transform: lowercase;
+	border-radius: 0;
+	border: 0;
+
+	text-decoration: none;
+
+	/* Spotify colors: */
+	color: #FFFFFF;
+	background-color: #1DB954;
+}
+
+/*
+ * Mobile
+ */
+
+@media screen and (max-width: 768px) {
+	section {
+		margin-left: 14px;
+		margin-right: 14px;
+	}
+}

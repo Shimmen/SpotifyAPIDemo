@@ -1,0 +1,28 @@
+{
+  "name": "spotify-api-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A simple program demo of the Spotify Web API",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Shimmen/SpotifyAPIDemo/"
+  },
+  "keywords": [
+    "spotify",
+    "api",
+    "demo"
+  ],
+  "author": "Simon Moos",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.5"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  }
+}
