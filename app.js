@@ -126,6 +126,7 @@ app.get('/oauth-callback', function(req, res) {
 	if (error) {
 		// User did not give authorization, abort
 		res.redirect('/');
+		return;
 	}
 
 	// No error, authorization code should be available
