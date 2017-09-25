@@ -2,7 +2,7 @@
   "name": "spotify-api-demo",
   "version": "1.0.0",
   "private": true,
-  "description": "A simple program demo of the Spotify Web API",
+  "description": "A simple demo of the Spotify Web API",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
