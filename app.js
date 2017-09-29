@@ -11,7 +11,7 @@ var app = express();
 // See https://developer.spotify.com/web-api/authorization-guide/#authorization-code-flow
 // for additional information about the Spotify web API that is used in this file.
 
-var client_id = '942817181f7f4d0a92bdff56b87e1b50';
+var client_id = fs.readFileSync('PUBLIC_KEY', 'utf8');
 var client_secret = fs.readFileSync('SECRET_KEY', 'utf8');
 var redirect_uri = 'http://localhost:8888/oauth-callback/';
 
@@ -22,12 +22,12 @@ var spotify_api_state_key     = 'spotify_api_state';
 ///////////////////////////////////////////////////////////////////////////////
 
 function generateRandomStateString() {
-  var text = '';
-  var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  for (var i = 0; i < 20; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
-  }
-  return text;
+	var text = '';
+	var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	for (var i = 0; i < 20; i++) {
+		text += possible.charAt(Math.floor(Math.random() * possible.length));
+	}
+	return text;
 }
 
 function getBase64AuthorizationHeader() {
@@ -42,52 +42,66 @@ function setAccessTokenCookie(res, access_token, expires_in) {
 	res.cookie(spotify_access_token_key, access_token, options);
 }
 
-function updateAccessTokenFromRefreshToken(res, refresh_token) {
-
-	var authOptions = {
-		url: 'https://accounts.spotify.com/api/token',
-		headers: { 'Authorization': getBase64AuthorizationHeader() },
-		form: {
-			grant_type: 'refresh_token',
-			refresh_token: refresh_token
-		},
-		json: true
-	};
-
-	request.post(authOptions, function(error, response, body) {
-		if (!error && response.statusCode === 200) {
-			setAccessTokenCookie(res, body.access_token, body.expires_in);
-		} else {
-			// TODO: Handle any possible errors!
-			console.log('Error: could not get access token from refresh token!');
-		}
-	});
-
-}
-
 ///////////////////////////////////////////////////////////////////////////////
+
+// Setup pug
+app.set('views', './views');
+app.set('view engine', 'pug');
 
 // Setup middleware
 app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
 
-// TODO: Change public from static hosting to be able to use this!
-app.get('/', function(req, res) {
+// Authentication middleware for handling refresh tokens and parsing the access token for further use
+app.get('*', function(req, res, next) {
 
 	var refresh_token = req.cookies ? req.cookies[spotify_refresh_token_key] : null;
 	var access_token = req.cookies ? req.cookies[spotify_access_token_key] : null;
 
-	if (!refresh_token) {
-		// NOTE: Render pre-login stuff!
-		console.log('Offline!');
+	if (refresh_token && !access_token) {
+
+		// Get new access token from the refresh token
+
+		var authOptions = {
+			url: 'https://accounts.spotify.com/api/token',
+			headers: { 'Authorization': getBase64AuthorizationHeader() },
+			form: {
+				grant_type: 'refresh_token',
+				refresh_token: refresh_token
+			},
+			json: true
+		};
+
+		request.post(authOptions, function(error, response, body) {
+			if (!error && response.statusCode === 200) {
+				// New access token acquired, set cookie and store in locals
+				setAccessTokenCookie(res, body.access_token, body.expires_in);
+				res.locals.access_token = body.access_token;
+				next();
+			} else {
+				// TODO: Handle any possible errors!
+				console.log('Error: could not get access token from refresh token!');
+			}
+		});
+
 	} else {
-		if (access_token) {
-			// NOTE: Render post-login stuff!
-			console.log('Online!');
-		} else {
-			updateAccessTokenFromRefreshToken(res, refresh_token);
-			console.log('Updating an access token!');
-		}
+
+		res.locals.access_token = access_token;
+		next();
+
+	}
+
+})
+
+app.get('/', function(req, res) {
+
+	// (from authentication middleware)
+	var access_token = res.locals.access_token;
+
+	if (access_token) {
+		res.render('post-login');
+	} else {
+		res.render('pre-login');
 	}
 
 });
