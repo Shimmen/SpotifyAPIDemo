@@ -2,5 +2,7 @@
 # NodeJS
 node_modules/
 
-# Spotify API secret key file
+# Spotify API public & secret key files (might as well hide public too)
+PUBLIC_KEY
 SECRET_KEY
+
